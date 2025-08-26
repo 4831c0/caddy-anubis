@@ -21,9 +21,14 @@ Example (also check the caddyfile in this repo, it is used for testing):
 ```caddy
 
 :80 {
+  request_header +X-Real-IP {remote_host}
+  request_header +X-Forwarded-For {remote_host}
+
   anubis
 
   # or 
+  request_header +X-Real-IP {remote_host}
+  request_header +X-Forwarded-For {remote_host}
 
   anubis {
     target https://qwant.com
