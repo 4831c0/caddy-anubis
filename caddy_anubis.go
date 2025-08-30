@@ -51,7 +51,7 @@ func (m *AnubisMiddleware) Provision(ctx caddy.Context) error {
 
 	m.AnubisServer, err = libanubis.New(libanubis.Options{
 		Next: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			m.logger.Info("Anubis middleware calling next")
+			// m.logger.Info("Anubis middleware calling next")
 
 			if m.Target != nil {
 				http.Redirect(w, r, *m.Target, http.StatusTemporaryRedirect)
@@ -77,9 +77,9 @@ func (m *AnubisMiddleware) Validate() error {
 
 // ServeHTTP implements caddyhttp.MiddlewareHandler.
 func (m *AnubisMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request, next caddyhttp.Handler) error {
-	m.logger.Info("Anubis middleware processing request")
+	// m.logger.Info("Anubis middleware processing request")
 	slog.SetLogLoggerLevel(slog.LevelDebug)
-	m.logger.Info("Anubis middleware sending request")
+	// m.logger.Info("Anubis middleware sending request")
 	m.Next = next
 	m.AnubisServer.ServeHTTP(w, r)
 	return nil
